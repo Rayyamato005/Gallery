@@ -529,3 +529,38 @@ body{
         display:none !important;
     }
 }
+/* =========================
+   FIX MODAL VIDEO MOBILE
+========================= */
+
+/* video trong modal */
+.modal-video{
+    max-width:90%;
+    max-height:85%;
+    object-fit:contain;
+    border-radius:12px;
+}
+
+/* mobile fix */
+@media (max-width:768px){
+
+    .modal{
+        top:0;
+        height:100%;
+        padding:10px;
+    }
+
+    .modal-video{
+        max-width:100%;
+        max-height:75%;
+        object-fit:contain;
+    }
+
+    /* nút đóng gọn lại */
+    #videoCloseBtn{
+        top:15px;
+        right:15px;
+        font-size:30px;
+    }
+
+}
