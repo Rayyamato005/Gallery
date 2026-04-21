@@ -44,6 +44,7 @@
         </div>
     </div>
 
+    <!-- MOBILE MENU -->
     <div class="mobile-menu">
         <a href="image.html">📷 Ảnh</a>
         <a href="video.html">🎬 Video</a>
@@ -55,16 +56,11 @@
     <!-- GALLERY -->
     <div id="gallery" class="gallery"></div>
 
-    <!-- MODAL -->
-    <div id="imageModal" class="modal">
-        <span id="closeBtn">&times;</span>
-        <img id="modalImg" class="modal-img">
-    </div>
-
-    <div id="screenOverlay" class="screen-overlay"></div>
+    <!-- ❌ ĐÃ XÓA MODAL + OVERLAY -->
 
     <script src="script.js"></script>
 
+    <!-- DROPDOWN -->
     <script>
         document.querySelectorAll(".nav-btn").forEach(btn => {
             btn.addEventListener("click", function (e) {
@@ -72,23 +68,22 @@
 
                 const dropdown = this.parentElement;
 
-                // đóng tất cả trước
                 document.querySelectorAll(".dropdown").forEach(d => {
                     if (d !== dropdown) d.classList.remove("active");
                 });
 
-                // toggle cái đang click
                 dropdown.classList.toggle("active");
             });
         });
 
-        // click ra ngoài thì đóng
         document.addEventListener("click", () => {
             document.querySelectorAll(".dropdown").forEach(d => {
                 d.classList.remove("active");
             });
         });
     </script>
+
+    <!-- MOBILE MENU -->
     <script>
         const menuToggle = document.querySelector(".menu-toggle");
         const mobileMenu = document.querySelector(".mobile-menu");
@@ -102,6 +97,7 @@
             mobileMenu.classList.remove("active");
         });
     </script>
+
 </body>
 
 </html>
