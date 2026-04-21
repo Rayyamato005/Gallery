@@ -1,14 +1,10 @@
 const gallery = document.getElementById("gallery");
-const modal = document.getElementById("imageModal");
-const modalImg = document.getElementById("modalImg");
-const closeBtn = document.getElementById("closeBtn");
 
 const IMAGE_API = "https://api.github.com/repos/rayyamato005/my-gallery/contents/image";
 
 // ===== STATE =====
 let images = [];
 let currentPage = parseInt(localStorage.getItem("galleryPage")) || 1;
-let currentIndex = -1;
 
 // 👉 1 hàng = 5 ảnh, 4 hàng = 20 ảnh / trang
 const perPage = 20;
@@ -18,94 +14,29 @@ function saveCurrentPage() {
     localStorage.setItem("galleryPage", currentPage);
 }
 
-// chặn chuột phải
+// ===== CHẶN COPY ẢNH =====
 window.addEventListener("contextmenu", (e) => {
     if (
         e.target.tagName === "IMG" ||
-        e.target.closest("#gallery") ||
-        e.target.closest("#imageModal")
+        e.target.closest("#gallery")
     ) {
         e.preventDefault();
     }
 });
 
-// chặn kéo ảnh
 window.addEventListener("dragstart", (e) => {
     if (e.target.tagName === "IMG") {
         e.preventDefault();
     }
 });
 
-// chặn bôi chọn
 document.addEventListener("selectstart", (e) => {
     if (
         e.target.tagName === "IMG" ||
-        e.target.closest("#gallery") ||
-        e.target.closest("#imageModal")
+        e.target.closest("#gallery")
     ) {
         e.preventDefault();
     }
-});
-
-// ===== NAV BUTTONS (MODAL) =====
-const prevBtn = document.createElement("button");
-const nextBtn = document.createElement("button");
-
-prevBtn.textContent = "‹";
-nextBtn.textContent = "›";
-
-[prevBtn, nextBtn].forEach((btn) => {
-    btn.style.position = "absolute";
-    btn.style.top = "50%";
-    btn.style.transform = "translateY(-50%)";
-    btn.style.zIndex = "9999";
-    btn.style.width = "48px";
-    btn.style.height = "48px";
-    btn.style.border = "none";
-    btn.style.borderRadius = "999px";
-    btn.style.background = "rgba(0,0,0,0.6)";
-    btn.style.color = "#fff";
-    btn.style.fontSize = "28px";
-    btn.style.cursor = "pointer";
-    btn.style.userSelect = "none";
-    btn.style.display = "none";
-});
-
-prevBtn.style.left = "16px";
-nextBtn.style.right = "16px";
-
-modal.appendChild(prevBtn);
-modal.appendChild(nextBtn);
-
-// ===== UPDATE NAV =====
-function updateNavButtons() {
-    const show = images.length > 1;
-    prevBtn.style.display = show ? "block" : "none";
-    nextBtn.style.display = show ? "block" : "none";
-}
-
-// ===== OPEN IMAGE =====
-function openImage(index) {
-    if (index < 0) index = images.length - 1;
-    if (index >= images.length) index = 0;
-
-    currentIndex = index;
-
-    modal.style.display = "flex";
-    modalImg.src = images[currentIndex].download_url;
-
-    updateNavButtons();
-}
-
-// ===== CLICK NAV =====
-prevBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    openImage(currentIndex - 1);
-});
-
-nextBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    openImage(currentIndex + 1);
 });
 
 // ===== PAGINATION UI =====
@@ -245,8 +176,7 @@ function renderGallery() {
 
     const pageItems = images.slice(start, end);
 
-    pageItems.forEach((file, idx) => {
-        const realIndex = start + idx;
+    pageItems.forEach((file) => {
 
         const img = document.createElement("img");
         img.src = file.download_url;
@@ -254,8 +184,12 @@ function renderGallery() {
         img.loading = "lazy";
         img.draggable = false;
 
+        // 👉 CLICK → CHUYỂN SANG VIEW
         img.addEventListener("click", () => {
-            openImage(realIndex);
+            saveCurrentPage();
+
+            const url = encodeURIComponent(file.download_url);
+            window.location.href = `view.html?img=${url}`;
         });
 
         gallery.appendChild(img);
@@ -268,7 +202,6 @@ function renderGallery() {
 async function loadImages() {
     try {
         const response = await fetch(IMAGE_API, { cache: "no-store" });
-
         const files = await response.json();
 
         images = files
@@ -287,20 +220,5 @@ async function loadImages() {
         gallery.innerHTML = "<p>Không tải được ảnh.</p>";
     }
 }
-
-// ===== CLOSE MODAL =====
-closeBtn.addEventListener("click", () => {
-    modal.style.display = "none";
-    modalImg.src = "";
-});
-
-modal.addEventListener("click", (e) => {
-    if (e.target === modal) {
-        modal.style.display = "none";
-        modalImg.src = "";
-    }
-});
-
-modalImg.draggable = false;
 
 loadImages();
