@@ -19,10 +19,8 @@
 
         <div class="header-right">
 
-            <!-- MOBILE BUTTON -->
             <button class="menu-toggle">☰</button>
 
-            <!-- DESKTOP MENU -->
             <div class="desktop-menu">
 
                 <a href="hide.html" class="nav-btn hide-btn">Ẩn</a>
@@ -60,14 +58,6 @@
     <!-- GALLERY -->
     <div id="videoGallery" class="gallery"></div>
 
-    <!-- MODAL -->
-    <div id="videoModal" class="modal">
-        <span id="videoCloseBtn">&times;</span>
-        <video id="modalVideo" class="modal-video" controls></video>
-    </div>
-
-    <div id="screenOverlay" class="screen-overlay"></div>
-
     <script src="video.js"></script>
 
     <!-- SCRIPT DROPDOWN -->
@@ -92,6 +82,7 @@
             });
         });
     </script>
+
     <script>
         const menuToggle = document.querySelector(".menu-toggle");
         const mobileMenu = document.querySelector(".mobile-menu");
