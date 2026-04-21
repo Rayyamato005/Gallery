@@ -5,9 +5,12 @@
 .view-page{
     display:flex;
     justify-content:center;
-    align-items:center;
-    min-height:calc(100vh - 80px);
-    padding:30px 20px;
+
+    align-items:flex-start;
+
+    padding:20px 20px 10px;
+
+    min-height:auto;
 }
 
 /* KHUNG BAO ẢNH/VIDEO */
@@ -108,5 +111,17 @@ video::-webkit-media-controls-enclosure {
     .related{
         grid-template-columns:repeat(2,1fr);
         max-width:100%;
+    }
+}
+@media (max-width:768px){
+
+    .view-page{
+        padding:15px 12px 5px;
+    }
+
+    .view-page img,
+    .view-page video{
+        max-width:100%;
+        max-height:65vh; 
     }
 }
