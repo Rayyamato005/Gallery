@@ -114,5 +114,6 @@ else if (video) {
     loadRelated("video");
 }
 else {
-    viewImg.src = "logo.png";
+    // ❌ KHÔNG có dữ liệu → quay về trang chủ
+    window.location.href = "index.html";
 }
