@@ -117,3 +117,73 @@ else {
     // ❌ KHÔNG có dữ liệu → quay về trang chủ
     window.location.href = "index.html";
 }
+
+//like
+const API = "https://royal-fire-a205.tmprpg.workers.dev";
+
+const likeCountEl = document.getElementById("likeCount");
+const likeBtn = document.getElementById("likeBtn");
+
+// lấy tên file (123.mp4)
+function getFileName(url) {
+    return decodeURIComponent(url.split("/").pop());
+}
+
+let currentFile = null;
+
+// xác định file hiện tại
+if (img) currentFile = getFileName(img);
+if (video) currentFile = getFileName(video);
+
+// ===== LOAD LIKE =====
+async function loadLikes() {
+    const res = await fetch(API + "/likes");
+    const data = await res.json();
+
+    if (data[currentFile]) {
+        likeCountEl.innerText = data[currentFile];
+    } else {
+        likeCountEl.innerText = 0;
+    }
+}
+
+// ===== CLICK LIKE =====
+
+const toast = document.getElementById("toast");
+
+function showToast(msg) {
+    toast.innerText = msg;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2000);
+}
+likeBtn.onclick = async () => {
+
+    // chặn spam (1 lần / máy)
+    if (localStorage.getItem("liked_" + currentFile)) {
+        likeBtn.style.color = "#ff0000";
+        showToast("Bạn đã ❤️ rồi");
+        return;
+    }
+
+    const res = await fetch(API + "/like", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name: currentFile })
+    });
+
+    const data = await res.json();
+
+    likeCountEl.innerText = data.count;
+
+    localStorage.setItem("liked_" + currentFile, true);
+
+    
+};
+
+// load khi vào trang
+loadLikes();
