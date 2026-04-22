@@ -125,3 +125,66 @@ video::-webkit-media-controls-enclosure {
         max-height:65vh; 
     }
 }
+
+/* tim */
+.like-box{
+    text-align:center;
+    margin-top:10px;
+    font-size:18px;
+}
+
+/* Nút tim */
+#likeBtn{
+    margin-left:10px;
+    width:40px;
+    height:40px;
+    border:none;
+    border-radius:50%;
+    cursor:pointer;
+
+    font-size:20px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#1a1a1a;
+    color:#ff4d6d;
+
+    transition:all 0.2s ease;
+}
+
+/* hover */
+#likeBtn:hover{
+    transform:scale(1.15);
+    background:#2a2a2a;
+}
+
+/* khi bấm */
+#likeBtn:active{
+    transform:scale(0.95);
+}
+/* tim roi */
+#toast{
+    position:fixed;
+    left:50%;
+    bottom:30px;
+    transform:translateX(-50%) translateY(20px);
+
+    background:rgba(0,0,0,0.85);
+    color:#fff;
+    padding:10px 16px;
+    border-radius:20px;
+
+    font-size:14px;
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:all 0.3s ease;
+}
+
+/* khi hiện */
+#toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+}
