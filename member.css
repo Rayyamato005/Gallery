@@ -1,0 +1,111 @@
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:Arial;
+    background:#0a0f1c;
+    overflow:hidden;
+}
+
+/* nền blur glow */
+.bg{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:radial-gradient(circle at top, #2563eb33, transparent 60%),
+               radial-gradient(circle at bottom, #7c3aed33, transparent 60%);
+    filter:blur(40px);
+}
+
+/* card glass */
+.login-card{
+    position:relative;
+    width:340px;
+    padding:32px 28px;
+
+    border-radius:18px;
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.1);
+    box-shadow:0 0 40px rgba(0,0,0,0.6);
+
+    text-align:center;
+    color:white;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;   /* FIX căn giữa */
+    gap:10px;             /* FIX khoảng cách đều */
+}
+
+h1{
+    margin:0;
+    font-size:24px;
+}
+
+p{
+    font-size:13px;
+    color:#aaa;
+    margin-bottom:20px;
+}
+
+/* input đẹp */
+input{
+    width:100%;
+    padding:12px 14px;
+
+    margin:0;            /* ❌ bỏ lệch */
+    box-sizing:border-box;
+
+    border:none;
+    outline:none;
+    border-radius:10px;
+
+    background:rgba(255,255,255,0.08);
+    color:white;
+}
+
+
+/* BUTTON FIX */
+button{
+    width:100%;
+    padding:12px;
+
+    margin-top:6px;
+
+    border:none;
+    border-radius:10px;
+
+    background:linear-gradient(90deg,#3b82f6,#8b5cf6);
+    color:white;
+    font-weight:bold;
+
+    cursor:pointer;
+    transition:0.25s;
+}
+
+button:hover{
+    transform:scale(1.03);
+    box-shadow:0 0 20px #3b82f6;
+}
+
+/* message */
+#msg{
+    margin-top:12px;
+    font-size:13px;
+}
+
+/* animation */
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
